@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Skip-Ad Feature Simulation</title>
+    <style>
+        #skipAdButton {
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #timer {
+            font-size: 20px;
+            color: #333;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>YouTube Ad Simulation</h2>
+
+<div id="adContainer">
+    <p>Ad is playing...</p>
+    <button id="skipAdButton">Skip Ad</button>
+    <div id="timer"></div>
+</div>
+
+<script>
+    let countdownInterval;
+    let adDuration = 10; 
+    let remainingTime = adDuration;
+
+    function updateTimer() {
+        const timerElement = document.getElementById('timer');
+        timerElement.textContent = `Skip Ad in ${remainingTime} seconds...`;
+    }
+
+    function skipAd() {
+        alert("Ad skipped!");
+        clearInterval(countdownInterval); 
+        document.getElementById('adContainer').innerHTML = "<p>You skipped the ad!</p>";
+    }
+
+    function startAd() {
+        setTimeout(function() {
+            document.getElementById('skipAdButton').style.display = 'inline-block'; 
+        }, 2000);
+
+        countdownInterval = setInterval(function() {
+            if (remainingTime > 0) {
+                remainingTime--;
+                updateTimer();
+            } else {
+                clearInterval(countdownInterval);
+                document.getElementById('timer').textContent = "You can skip the ad now.";
+            }
+        }, 1000);
+    }
+
+    document.getElementById('skipAdButton').addEventListener('click', function() {
+        skipAd(); 
+    });
+
+    startAd();
+</script>
+
+</body>
+</html>
